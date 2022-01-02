@@ -1,6 +1,9 @@
 package baseball;
 
 import baseball.domain.Calculator;
+import baseball.domain.NumberGenerator;
+
+import java.util.List;
 
 /**
  * main메서드에 모든 것을 담기보다는 적절한 클래스를 만들어 각자의 역할을 하게 한다.
@@ -50,6 +53,12 @@ public class Application {
         int[] player = {1, 2, 3};
 
         // "3 Strike" = match(computer, player);
+        ////////////////////////////////////////////////////////////////////////
+        final NumberGenerator generator = new NumberGenerator();
+        List<Integer> numbers = generator.createRandomNumber();
+        System.out.println(numbers);
+        // 중복이 발생하네...?
+
 
     }
 }
