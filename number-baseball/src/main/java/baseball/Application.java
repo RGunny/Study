@@ -1,8 +1,10 @@
 package baseball;
 
 import baseball.domain.Calculator;
+import baseball.domain.Judgement;
 import baseball.domain.NumberGenerator;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,7 +29,7 @@ public class Application {
         System.out.println("calculator2.result = " + calculator2.result);
         System.out.println("calculator.shareResult = " + calculator.shareResult);
 
-       System.out.println("calculator.result = " + calculator.result); // 4
+        System.out.println("calculator.result = " + calculator.result); // 4
         // => 복사가 된 것이니 값이 변하지 않고 4가 출력되어야 함
         // => Calculator1과 Calculator2는 서로 영향을 끼치지 않는 독립적인 객체
         System.out.println("calculator.shareResult = " + calculator.shareResult); // 2021
@@ -59,6 +61,11 @@ public class Application {
         System.out.println(numbers);
         // 중복이 발생하네...?
 
-
+        ////////////////////////////////////////////////////////////////////////
+        Judgement judgement = new Judgement();
+        final int count = judgement.correctCount(Arrays.asList(1, 2, 3), Arrays.asList(1, 2, 3));
+        System.out.println("count = " + count); // 3
+        // ctrl + alt + L    /    command + option + L 자동 정렬
+        // Class Level 이 아닌 package 레벨에서 자동정렬하고 싶을 시, => 좌측 패키지에서 해당 단축키
     }
 }
