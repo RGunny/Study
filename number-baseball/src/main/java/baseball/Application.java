@@ -3,6 +3,7 @@ package baseball;
 import baseball.domain.Calculator;
 import baseball.domain.Judgement;
 import baseball.domain.NumberGenerator;
+import baseball.domain.Referee;
 
 import java.util.Arrays;
 import java.util.List;
@@ -73,5 +74,11 @@ public class Application {
         System.out.println("place = " + place);
         boolean place1 = judgement1.hasPlace(Arrays.asList(7, 8, 9), 1, 7);// 두 번째(1번째) 인덱스에 있는 숫자가 7이냐?
         System.out.println("place1 = " + place1);
+        ////////////////////////////////////////////////////////////////////////
+        Referee referee = new Referee();
+        String result = referee.compare(Arrays.asList(1, 2, 3), Arrays.asList(1, 2, 3));
+        System.out.println("result = " + result); // 3 스트라이크 가 아닌, 0 볼 3 스트라이크
+        String result1 = referee.compare(Arrays.asList(3, 1, 2), Arrays.asList(1, 2, 3));
+        System.out.println("result1 = " + result1);
     }
 }
