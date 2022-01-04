@@ -5,8 +5,10 @@ import baseball.domain.Judgement;
 import baseball.domain.NumberGenerator;
 import baseball.domain.Referee;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * main메서드에 모든 것을 담기보다는 적절한 클래스를 만들어 각자의 역할을 하게 한다.
@@ -80,7 +82,28 @@ public class Application {
         System.out.println("result = " + result); // 3 스트라이크 가 아닌, 0 볼 3 스트라이크
         String result1 = referee.compare(Arrays.asList(3, 1, 2), Arrays.asList(1, 2, 3));
         System.out.println("result1 = " + result1);
+        ////////////////////////////////////////////////////////////////////////
+        NumberGenerator generator1 = new NumberGenerator();
+        List<Integer> computer1 = generator1.createRandomNumber();
+        Referee referee1 = new Referee();
+        String result2 = "";
+        System.out.println(computer1);
+        while (!result2.equals("0 볼 3 스트라이크")) {
+            result2 = referee1.compare(computer1, askNumbers()); // 인스턴스화 해서 부르지 않는 이상, 정적메서드에서의 호출은 정적메서드만 가능 (메서드를 바로 호출할 때)
+            System.out.println(result2);
+        }
+        System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    }
 
+    public static List<Integer> askNumbers() {
+        System.out.println("숫자를 입력해 주세요 : ");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.next();
 
+        List<Integer> numbers = new ArrayList<>();
+        for (String number : input.split("")) {
+            numbers.add(Integer.valueOf(number));
+        }
+        return numbers;
     }
 }
