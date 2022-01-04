@@ -80,5 +80,7 @@ public class Application {
         System.out.println("result = " + result); // 3 스트라이크 가 아닌, 0 볼 3 스트라이크
         String result1 = referee.compare(Arrays.asList(3, 1, 2), Arrays.asList(1, 2, 3));
         System.out.println("result1 = " + result1);
+
+
     }
 }
