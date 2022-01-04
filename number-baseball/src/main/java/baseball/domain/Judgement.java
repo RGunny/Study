@@ -20,7 +20,11 @@ public class Judgement {
         return result;
     }
 
-    public boolean hasPlace(List<Integer> computer, int placeNumber, int number) {
-        return false;
+    public boolean hasPlace(List<Integer> computer, int placeIndex, int number) {
+//        if (computer.get(placeIndex) == number) {  // 이렇게 get()으로 특정 자리의 숫자를 가져올 수 있을까요? => 인덱싱이 있음, 0부터 ~
+//            return true;
+//        }
+//        return false;
+        return computer.get(placeIndex) == number; // 한 줄로 줄일 수 있음
     }
 }

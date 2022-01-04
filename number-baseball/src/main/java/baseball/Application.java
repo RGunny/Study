@@ -66,6 +66,12 @@ public class Application {
         final int count = judgement.correctCount(Arrays.asList(1, 2, 3), Arrays.asList(1, 2, 3));
         System.out.println("count = " + count); // 3
         // ctrl + alt + L    /    command + option + L 자동 정렬
-        // Class Level 이 아닌 package 레벨에서 자동정렬하고 싶을 시, => 좌측 패키지에서 해당 단축키
+        // Class Level 이 아닌 package 레벨에서 자동정렬하고 싶을 시, => 좌측 패키지에서 해당 단축키음
+        ////////////////////////////////////////////////////////////////////////
+        Judgement judgement1 = new Judgement();
+        boolean place = judgement1.hasPlace(Arrays.asList(7, 8, 9), 0, 7);// 첫 번째(0번째) 인덱스에 있는 숫자가 7이냐?
+        System.out.println("place = " + place);
+        boolean place1 = judgement1.hasPlace(Arrays.asList(7, 8, 9), 1, 7);// 두 번째(1번째) 인덱스에 있는 숫자가 7이냐?
+        System.out.println("place1 = " + place1);
     }
 }
