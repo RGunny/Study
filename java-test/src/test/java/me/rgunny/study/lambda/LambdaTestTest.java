@@ -1,6 +1,7 @@
 package me.rgunny.study.lambda;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Comparator;
@@ -11,6 +12,26 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LambdaTestTest {
+
+    private LambdaTest lambdaTest;
+
+    @BeforeEach
+    void setUp(){
+        lambdaTest = new LambdaTest();
+    }
+
+    /**
+     * 순수 함수 (Pure Funtion)
+     *  사이드 이펙트가 없다. (함수 밖에 있는 값을 변경하지 않는다.)
+     *  상태가 없다. (함수 밖에 있는 값을 사용하지 않는다.)
+     */
+    @Test
+    void pureFunctionTest(){
+        int number = 1;
+        assertThat(lambdaTest.pureFunction(number))
+                .isEqualTo(lambdaTest.pureFunction(number))
+                .isEqualTo(lambdaTest.pureFunction(number));
+    }
 
     @Test
     void findLambdaQuiz(){
