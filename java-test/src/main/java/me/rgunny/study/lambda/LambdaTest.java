@@ -13,6 +13,8 @@ public class LambdaTest {
         };
         // interface가 하나 인 경우 자바8부터 줄여서 사용가능한 문법이 생김 (lambda)
         RunSomething usingLambda = () -> System.out.println("Hello");
+
+
     }
 
     public int pureFunction(int number){
