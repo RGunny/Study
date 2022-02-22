@@ -2,10 +2,7 @@ package me.rgunny.study.lambda;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -88,4 +85,18 @@ class FunctionalInterfaceTest {
         assertThat(isEven.test(9)).isFalse();
         assertThat(startsWithGunny.negate().test("NoGunny")).isTrue();
     }
+
+    /**
+     * UnaryOperator<T>
+     *  Function<T, R> 의 특수한 형태로, 입력값 하나를 받아서 동일한 타입을 리턴하는 함수 인터페이스
+     *  => 입력값의 타입과 결과값의 타입이 같을 때 (타입이 하나일 때) 사용할 수 있는 특수한 함수 인터페이스
+     *  => Function 을 상속받기 때문에 제공하는 apply(), default method 등을 사용할 수 있음
+     */
+    void unaryOperator(){
+//        Function<Integer, Integer> plus10 = (i) -> i + 10;
+        UnaryOperator<Integer> plus10 = (i) -> i + 10;
+
+        assertThat(plus10.apply(10)).isEqualTo(20);
+    }
+
 }
