@@ -70,4 +70,22 @@ class FunctionalInterfaceTest {
         assertThat(get10.get()).isEqualTo(10);
     }
 
+    /**
+     * Predicate<T>
+     *  T 타입을 받아서 boolean을 리턴하는 함수 인터페이스
+     *      : boolean test(T t)
+     *  함수 조합용 메서드
+     *      And
+     *      Or
+     *      Negate
+     */
+    @Test
+    void predicate(){
+        Predicate<String> startsWithGunny = (s) -> s.startsWith("Gunny");
+        Predicate<Integer> isEven = (i) -> i % 2 == 0;
+
+        assertThat(startsWithGunny.test("Gunny")).isTrue();
+        assertThat(isEven.test(9)).isFalse();
+        assertThat(startsWithGunny.negate().test("NoGunny")).isTrue();
+    }
 }
