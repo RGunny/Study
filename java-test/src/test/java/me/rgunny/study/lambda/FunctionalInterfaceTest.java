@@ -58,4 +58,16 @@ class FunctionalInterfaceTest {
         printT.accept(10);
     }
 
+    /**
+     * Supplier<T>
+     *  T 타입의 값을 제공하는 함수 인터페이스
+     *      T get()
+     *  => 어떤 값을 하나 가져오는 인터페이스 => 입력값을 받지 않고, 리턴 값의 타입을 정함
+     */
+    @Test
+    void supplier(){
+        Supplier<Integer> get10 = () -> 10; // 입력값이 없기 때문에 람다 표현식에 인자를 줄 필요가 없음
+        assertThat(get10.get()).isEqualTo(10);
+    }
+
 }
