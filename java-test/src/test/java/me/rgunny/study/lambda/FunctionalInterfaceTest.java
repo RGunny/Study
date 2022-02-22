@@ -43,4 +43,19 @@ class FunctionalInterfaceTest {
         assertThat(plus10AndThenMultiply2.apply(2)).isEqualTo(24);
     }
 
+    /**
+     * Consumer<T>
+     *  T 라는 타입을 받아서 아무 값도 리턴하지 않는 함수 인터페이스
+     *      void Accept(T t)
+     *  함수 조합용 메서드
+     *      andThen()
+     */
+    @Test
+    void consumerAccept(){
+//        Consumer<Integer> printT = (i) -> System.out.println(i);
+        Consumer<Integer> printT = System.out::println; // use method reference
+
+        printT.accept(10);
+    }
+
 }
