@@ -99,4 +99,13 @@ class FunctionalInterfaceTest {
         assertThat(plus10.apply(10)).isEqualTo(20);
     }
 
+    /**
+     * BinaryOperator<T>
+     *  BiFunction<T, U, R> 의 특수한 형태로, 동일한 타입의 입력값 두 개를 받아 리턴하는 함수 인터페이스
+     */
+    void binaryOperator(){
+        BinaryOperator<Integer> plusTwoInteger = (i1, i2) -> i1 + i2;
+
+        assertThat(plusTwoInteger.apply(3, 7)).isEqualTo(10);
+    }
 }
