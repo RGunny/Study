@@ -92,6 +92,7 @@ class FunctionalInterfaceTest {
      *  => 입력값의 타입과 결과값의 타입이 같을 때 (타입이 하나일 때) 사용할 수 있는 특수한 함수 인터페이스
      *  => Function 을 상속받기 때문에 제공하는 apply(), default method 등을 사용할 수 있음
      */
+    @Test
     void unaryOperator(){
 //        Function<Integer, Integer> plus10 = (i) -> i + 10;
         UnaryOperator<Integer> plus10 = (i) -> i + 10;
@@ -103,6 +104,7 @@ class FunctionalInterfaceTest {
      * BinaryOperator<T>
      *  BiFunction<T, U, R> 의 특수한 형태로, 동일한 타입의 입력값 두 개를 받아 리턴하는 함수 인터페이스
      */
+    @Test
     void binaryOperator(){
         BinaryOperator<Integer> plusTwoInteger = (i1, i2) -> i1 + i2;
 
