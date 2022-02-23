@@ -132,4 +132,31 @@ class LambdaTestTest {
         };
     }
 
+    /**
+     * Lambda 에서 local variable 참조
+     *
+     * Local, Anonymous Class 와 Lambda 의 차이점
+     * => Local, Anonymous Class 는 Shadowing 이 되지만, Lambda 는 안 됨
+     * Shadowing
+     * : local class 나 anonymous class 에 선언한 변수는 같은 이름의 변수가 상위 메서드나 클래스에 있다면 상위를 가린다. (Nested Class 도 가림)
+     * => 쉐도잉이 가능한 이유는 별도의 Scope 으로 작동하기 때문
+     *
+     * Lambda 는 Lambda 를 가진 메서드와 Scope 이 같음
+     * => 쉐도잉이 발생하지 않음
+     * => 애초에 같은 Scope 이므로 같은 이름의 변수명을 생성할 수 없음
+     */
+    @Test
+    void lambdaShadowing() {
+        int baseNumber = 10; // effectively final
+
+        // Lambda
+        IntConsumer printInt = (i) -> {
+            System.out.println(i + baseNumber);
+        };
+//        IntConsumer printInt2 = (baseNumber) -> { // Compile Error : Variable 'baseNumber' is already defined in the scope
+//            System.out.println(baseNumber);
+//        };
+
+        printInt.accept(10);
+    }
 }
