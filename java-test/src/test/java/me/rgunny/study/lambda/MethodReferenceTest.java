@@ -2,6 +2,8 @@ package me.rgunny.study.lambda;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
@@ -47,7 +49,7 @@ class MethodReferenceTest {
      * use method reference (빈 constructor 참조)
      */
     @Test
-    void defaultConstructor(){
+    void defaultConstructor() {
         // 생성자를 호출할 때 리턴은 객체의 타입 => 입력값은 없는데, 결과같은 있음 => Supplier
         // 아직 인스턴스(Greeting) 아님 Supplier임
         Supplier<Greeting> newGreeting = Greeting::new;
@@ -72,5 +74,47 @@ class MethodReferenceTest {
         System.out.println(gunny.getName()); // 문자를 받는 생성자가 생성된 것을 확인
         System.out.println("gunny = " + gunny);
         assertThat(gunnyGreeting.apply("gunny").getName().equals("gunny")).isTrue();
+    }
+
+    /**
+     * 임의 객체의 인스턴스 메서드 참조
+     * 특정 타입의 불특정 다수 인스턴스 메서드 참조
+     */
+    @Test
+    void multiObject() {
+
+        String[] names = {"gunny", "kyuhee", "yerim"};
+        Arrays.sort(names, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return (o2 + o1).compareTo(o1 + o2);
+            }
+        });
+        Arrays.sort(names, (o1, o2) -> (o2 + o1).compareTo(o1 + o2)); // lambda expression
+        /*
+         Comparator 가 자바8부터 Functional Interface 로 바뀌어
+         구현해야 하는 추상 메서드는 int compare(T o1, T o2) 하나이지만,
+         default, static method 들이 있음
+         cf. equals()는 Object 에 있는 거지 추상 메서드 아님
+         => 애초에 Functional Interface 는 추상 메서드를 하나 가짐
+
+         compareToIgnoreCase :
+          자기 자신의 문자열과 파라미터로 받은 문자열을 비교하여 int 반환
+          임의의 인스턴스 a, b, c
+          a가 b와 비교하여 int 값 반환, b가 c와 비교하여 int 값 반환
+         */
+        System.out.println(Arrays.toString(names));
+        Arrays.sort(names, (s, str) -> s.compareToIgnoreCase(str)); // lambda expression (ASC)
+        Arrays.sort(names, String::compareToIgnoreCase); // method reference (ASC)
+        System.out.println(Arrays.toString(names));
+
+        Arrays.sort(names, (str, s) -> s.compareToIgnoreCase(str)); // lambda expression (DESC)
+        Arrays.sort(names, MethodReferenceTest::compare); // lambda expression (DESC) => 따로 전용 메서드를 생성하게 됨
+        Arrays.sort(names, (str, s) -> compare(str, s)); // lambda expression (DESC)
+        System.out.println(Arrays.toString(names));
+    }
+
+    private static int compare(String str, String s) {
+        return s.compareToIgnoreCase(str);
     }
 }
