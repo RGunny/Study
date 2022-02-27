@@ -1,5 +1,7 @@
 package me.rgunny.study.optional;
 
+import java.util.Optional;
+
 public class OnlineClass {
 
     private Integer id;
@@ -44,9 +46,22 @@ public class OnlineClass {
         return progress;
     }
 
+    public Optional<Progress> getProgressByOptional() {
+        return Optional.ofNullable(progress);
+    }
 
     public void setProgress(Progress progress) {
         this.progress = progress;
     }
 
+    /**
+     * Optional을 파라미터로 사용하지 말자
+     * => 오히려 별도의 체크를 더 해야 함
+     */
+    public void setProgressByOptionalParameter(Optional<Progress> progress) {
+        progress.ifPresent(p -> this.progress = p);
+//        if (progress != null) {
+//            progress.ifPresent(p -> this.progress = p);
+//        }
+    }
 }

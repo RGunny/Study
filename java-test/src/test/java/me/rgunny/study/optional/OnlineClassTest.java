@@ -44,5 +44,15 @@ class OnlineClassTest {
         }
     }
 
+    /**
+     * Optional 을 파라미터로 사용 시, 해당 메서드에서 오히려 별도의 체크를 해야할 뿐만 아니라
+     * 호출부에서 null 을 직접 넣을 수도 있다.
+     * => Optional 을 사용하는 의미가 없어지고, 오히려 null check 를 한 번 더 해줘야 함
+     */
+    @Test
+    void optional_as_parameter_and_throw() {
+        OnlineClass springBoot = new OnlineClass(1, "spring boot", true);
+        assertThrows(NullPointerException.class, () -> springBoot.setProgressByOptionalParameter(null));
+    }
 
 }
