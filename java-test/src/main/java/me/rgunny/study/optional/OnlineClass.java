@@ -44,6 +44,7 @@ public class OnlineClass {
         return progress;
     }
 
+
     public void setProgress(Progress progress) {
         this.progress = progress;
     }

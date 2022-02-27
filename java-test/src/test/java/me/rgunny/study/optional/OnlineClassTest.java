@@ -20,4 +20,11 @@ class OnlineClassTest {
         springClasses.add(new OnlineClass(5, "rest api development", false));
     }
 
+    @Test
+    void occur_NPE_and_throws() {
+        OnlineClass springBoot = new OnlineClass(1, "spring boot", true);
+        assertThrows(NullPointerException.class, () -> springBoot.getProgress().getStudyDuration());
+    }
+
+
 }
