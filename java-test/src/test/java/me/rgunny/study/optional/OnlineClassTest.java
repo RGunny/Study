@@ -66,4 +66,11 @@ class OnlineClassTest {
         assertEquals((Integer) 10, opt10.get());
         assertEquals(10, optInt10.getAsInt());
     }
+
+    @Test
+    void optional_empty() {
+        OnlineClass springBoot = new OnlineClass(1, "spring boot", true);
+        Optional<Progress> progress = springBoot.getProgressByOptionalReturnEmpty();
+        System.out.println("progress = " + progress);
+    }
 }

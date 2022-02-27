@@ -45,9 +45,13 @@ public class OnlineClass {
     public Progress getProgress() {
         return progress;
     }
-
     public Optional<Progress> getProgressByOptional() {
         return Optional.ofNullable(progress);
+    }
+
+    public Optional<Progress> getProgressByOptionalReturnEmpty() {
+//        return null; // do not use ever
+        return Optional.empty();
     }
 
     public void setProgress(Progress progress) {
