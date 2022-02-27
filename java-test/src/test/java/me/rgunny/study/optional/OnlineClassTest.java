@@ -5,7 +5,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class OnlineClassTest {
@@ -55,4 +58,12 @@ class OnlineClassTest {
         assertThrows(NullPointerException.class, () -> springBoot.setProgressByOptionalParameter(null));
     }
 
+    @Test
+    void optional_primitive_type() {
+        Optional<Integer> opt10 = Optional.of(10);
+        OptionalInt optInt10 = OptionalInt.of(10);
+
+        assertEquals((Integer) 10, opt10.get());
+        assertEquals(10, optInt10.getAsInt());
+    }
 }
