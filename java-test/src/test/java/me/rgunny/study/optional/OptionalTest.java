@@ -75,6 +75,11 @@ class OptionalTest {
         System.out.println("progress = " + progress);
     }
 
+    /**
+     * filter(Functional Interface Predicate)
+     * => Optional 에 있는 값 걸러냄
+     * => Optional 반환
+     */
     @Test
     void optional_filter(){
         Optional<OnlineClass> optional = springClasses.stream()
@@ -82,6 +87,13 @@ class OptionalTest {
                 .findFirst();
 
         assertTrue(optional.isPresent());
+
+        Optional<OnlineClass> onlineClass1 = optional
+                .filter(oc -> !oc.isClosed());
+        Optional<OnlineClass> onlineClass2 = optional
+                .filter(OnlineClass::isClosed);
+
+        assertTrue(onlineClass1.isEmpty());
     }
 
     /**
