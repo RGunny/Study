@@ -189,10 +189,16 @@ class OptionalTest {
     }
 
     /**
-     * map()
+     * map(U)
+     * => mapper 함수를 통해 입력 값을 다른 값으로 변환하는 메서드
+     * => 결과를 Optional 로 감싸서 리턴
      * => map() 으로 꺼내는 타입이 Optional 인 경우 복잡해짐
+     * => stream 의 map() 은 1:1 매핑
      *
-     * flatMap()
+     * flatMap(Optional(U))
+     * => mapper 함수를 통해 입력 값을 다른 값으로 변환하는 메서드
+     * => map()이 제네릭 U로 정의했던 것과는 다르게, 메서드 시그니처의 파라미터가 제네릭으로 Optional(U) 로 정의되어 있음
+     * => flatMap() 가 반환하는 값은 Optional 임
      * => mapping 해서 꺼내는 타입 자체가 optional 인 경우 한 번 꺼내어 반환
      */
     @Test
