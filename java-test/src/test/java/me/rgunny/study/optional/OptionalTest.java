@@ -188,6 +188,25 @@ class OptionalTest {
         assertThrows(NoSuchElementException.class, () -> optional.orElseThrow());
     }
 
+    /**
+     * map()
+     * => map() 으로 꺼내는 타입이 Optional 인 경우 복잡해짐
+     *
+     * flatMap()
+     * => mapping 해서 꺼내는 타입 자체가 optional 인 경우 한 번 꺼내어 반환
+     */
+    @Test
+    void optional_map(){
+        Optional<OnlineClass> optional = springClasses.stream()
+                .filter(oc -> oc.getTitle().startsWith("jpa"))
+                .findFirst();
+
+        Optional<Integer> integer = optional.map(OnlineClass::getId);
+
+        Optional<Optional<Progress>> progress1 = optional.map(OnlineClass::getOptionalProgress);
+        Optional<Progress> progress2 = optional.flatMap(OnlineClass::getOptionalProgress);
+    }
+
     private static OnlineClass createNewClass() {
         System.out.println("실행되었습니다.");
         return new OnlineClass(10, "New Class", false);

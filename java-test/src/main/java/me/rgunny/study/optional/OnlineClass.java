@@ -12,6 +12,8 @@ public class OnlineClass {
 
     public Progress progress;
 
+    public Optional<Progress> optionalProgress;
+
     public OnlineClass(Integer id, String title, boolean closed) {
         this.id = id;
         this.title = title;
@@ -45,6 +47,11 @@ public class OnlineClass {
     public Progress getProgress() {
         return progress;
     }
+
+    public Optional<Progress> getOptionalProgress() {
+        return optionalProgress;
+    }
+
     public Optional<Progress> getProgressByOptional() {
         return Optional.ofNullable(progress);
     }
