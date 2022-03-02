@@ -3,10 +3,7 @@ package me.rgunny.study.optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.OptionalInt;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -76,11 +73,27 @@ class OnlineClassTest {
 
     @Test
     void optional_filter(){
-        Optional<OnlineClass> onlineClass = springClasses.stream()
+        Optional<OnlineClass> optional = springClasses.stream()
                 .filter(oc -> oc.getTitle().startsWith("spring"))
                 .findFirst();
 
-        assertTrue(onlineClass.isPresent());
+        assertTrue(optional.isPresent());
     }
 
+    /**
+     * get() : Optional 의 값을 꺼내는 메서드
+     * 비어있는 Optional 에서 무언가를 꺼낸다면
+     * => `NoSuchElementException` 발생
+     * => 먼저 값이 있는 지 확인하고 꺼내야 함
+     * => 이게 무슨 의미인가...
+     */
+    @Test
+    void optional_get(){
+        Optional<OnlineClass> optional = springClasses.stream()
+                .filter(oc -> oc.getTitle().startsWith("no"))
+                .findFirst();
+
+        assertThrows(NoSuchElementException.class, () -> optional.get());
+        assertThrows(NoSuchElementException.class, optional::get);
+    }
 }
