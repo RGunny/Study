@@ -114,4 +114,31 @@ class OptionalTest {
         optional.ifPresent(oc -> System.out.println(oc.getTitle()));
         optional.ifPresent(OptionalTest::accept);
     }
+
+    /**
+     * ofElse(T)
+     * => 이미 만들어져 있는 `인스턴스`를 사용할 때 사용
+     * => orElse() 파라미터로는 functional interface 구현체가 아닌, optional 이 감싸고 있는 instance 가 들어옴
+     * => 있든 없든 뒤에 있는 연산이 무조건 실행됨
+     */
+    @Test
+    void optional_orElse(){
+        Optional<OnlineClass> optional1 = springClasses.stream()
+                .filter(oc -> oc.getTitle().startsWith("spring"))
+                .findFirst();
+        Optional<OnlineClass> optional2 = springClasses.stream()
+                .filter(oc -> oc.getTitle().startsWith("jpa"))
+                .findFirst();
+
+        OnlineClass onlineClass1 = optional1.orElse(createNewClass());
+        OnlineClass onlineClass2 = optional2.orElse(createNewClass());
+
+        assertEquals(onlineClass1.getTitle().startsWith("spring"), true);
+        assertEquals(onlineClass2.getTitle().startsWith("New"), true);
+    }
+
+    private static OnlineClass createNewClass() {
+        System.out.println("실행되었습니다.");
+        return new OnlineClass(10, "New Class", false);
+    }
 }
