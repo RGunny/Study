@@ -7,13 +7,17 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class OnlineClassTest {
+class OptionalTest {
 
     private List<OnlineClass> springClasses = new ArrayList<>();
 
+    private static void accept(OnlineClass oc) {
+        System.out.println(oc.getTitle());
+    }
+
     @BeforeEach
     void setUp() {
-        springClasses.add(new OnlineClass(1, "spring sboot", true));
+        springClasses.add(new OnlineClass(1, "spring boot", true));
         springClasses.add(new OnlineClass(2, "spring data jpa", true));
         springClasses.add(new OnlineClass(3, "spring mvc", false));
         springClasses.add(new OnlineClass(4, "spring core", false));
@@ -95,5 +99,19 @@ class OnlineClassTest {
 
         assertThrows(NoSuchElementException.class, () -> optional.get());
         assertThrows(NoSuchElementException.class, optional::get);
+    }
+
+    /**
+     * ifPresent(Functional Interface Consumer<T>)
+     * => get() 으로 꺼내기 위해 조건 확인 등의 처리가 사라짐
+     */
+    @Test
+    void optional_ifPresent(){
+        Optional<OnlineClass> optional = springClasses.stream()
+                .filter(oc -> oc.getTitle().startsWith("spring"))
+                .findFirst();
+
+        optional.ifPresent(oc -> System.out.println(oc.getTitle()));
+        optional.ifPresent(OptionalTest::accept);
     }
 }
