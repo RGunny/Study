@@ -155,6 +155,27 @@ class OptionalTest {
         OnlineClass onlineClass2 = optional2.orElseGet(OptionalTest::createNewClass);
     }
 
+    /**
+     * orElseThrow()
+     * => Optional 에 값이 있으면 가져오고, 없는 경우 에러를 던짐
+     * => orElse(), orElseGet() 등 무언가 만들 수도 없는 상황일 때 사용
+     * => default 로 NoSuchElementException 을 던지고, 원하는 에러 Supplier 로 원하는 제공 가능
+     */
+    @Test
+    void optional_orElseThrow(){
+        Optional<OnlineClass> optional = springClasses.stream()
+                .filter(oc -> oc.getTitle().startsWith("jpa"))
+                .findFirst();
+
+//        OnlineClass onlineClass = optional.orElseThrow(() -> {
+//            return new IllegalStateException(); // Supplier 로 원하는 에러 던짐
+//        });
+        // method reference 로 생성자 참조
+//        OnlineClass onlineClass = optional.orElseThrow(IllegalStateException::new);
+
+        assertThrows(NoSuchElementException.class, () -> optional.orElseThrow());
+    }
+
     private static OnlineClass createNewClass() {
         System.out.println("실행되었습니다.");
         return new OnlineClass(10, "New Class", false);
