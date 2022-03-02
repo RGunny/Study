@@ -137,6 +137,24 @@ class OptionalTest {
         assertEquals(onlineClass2.getTitle().startsWith("New"), true);
     }
 
+    /**
+     * orElseGet(Functional Interface Supplier)
+     * => 이미 만들어져 있는 것이 아닌, 동적인 작업을 해서 만들거나 추가할 때 사용
+     * => orElse 조건에 들어올 때만 메서드 파라미터의 Supplier 를 실행함 (함수형 인터페이스의 구현체이기 때문에 Lazy 하게 다룰 수 있음)
+     */
+    @Test
+    void optional_orElseGet(){
+        Optional<OnlineClass> optional1 = springClasses.stream()
+                .filter(oc -> oc.getTitle().startsWith("spring"))
+                .findFirst();
+        Optional<OnlineClass> optional2 = springClasses.stream()
+                .filter(oc -> oc.getTitle().startsWith("jpa"))
+                .findFirst();
+
+        OnlineClass onlineClass1 = optional1.orElseGet(OptionalTest::createNewClass);
+        OnlineClass onlineClass2 = optional2.orElseGet(OptionalTest::createNewClass);
+    }
+
     private static OnlineClass createNewClass() {
         System.out.println("실행되었습니다.");
         return new OnlineClass(10, "New Class", false);
