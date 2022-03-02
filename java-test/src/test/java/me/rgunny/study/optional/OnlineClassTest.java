@@ -8,15 +8,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.OptionalInt;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class OnlineClassTest {
 
+    private List<OnlineClass> springClasses = new ArrayList<>();
+
     @BeforeEach
     void setUp() {
-        List<Object> springClasses = new ArrayList<>();
-        springClasses.add(new OnlineClass(1, "spring boot", true));
+        springClasses.add(new OnlineClass(1, "spring sboot", true));
         springClasses.add(new OnlineClass(2, "spring data jpa", true));
         springClasses.add(new OnlineClass(3, "spring mvc", false));
         springClasses.add(new OnlineClass(4, "spring core", false));
@@ -73,4 +73,14 @@ class OnlineClassTest {
         Optional<Progress> progress = springBoot.getProgressByOptionalReturnEmpty();
         System.out.println("progress = " + progress);
     }
+
+    @Test
+    void optional_filter(){
+        Optional<OnlineClass> onlineClass = springClasses.stream()
+                .filter(oc -> oc.getTitle().startsWith("spring"))
+                .findFirst();
+
+        assertTrue(onlineClass.isPresent());
+    }
+
 }
