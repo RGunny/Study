@@ -11,6 +11,11 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * References
+ * - https://docs.oracle.com/javase/8/docs/api/java/util/stream/Stream.html
+ * - https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html
+ */
 class StreamTest {
 
     private List<OnlineClass> springClasses = new ArrayList<>();
@@ -75,9 +80,25 @@ class StreamTest {
         assertEquals(Arrays.asList(onlineClassIds), onlineClasses);
     }
 
+    /**
+     * <R> Stream<R> map(Function<? super T,? extends R> mapper)
+     * Returns a stream consisting of the results of applying the given function to the elements of this stream.
+     * This is an intermediate operation.
+     */
     @Test
-    void 수업_이름_모아서_스트림_만들기() {
+    void stream_map() {
+        String[] onlineClassTitles = {"spring boot", "spring data jpa", "spring mvc", "spring core", "rest api development"};
 
+        // 수업 이름 모아서 스트림 만들기
+        springClasses.stream()
+                .map(oc -> oc.getTitle())
+                .forEach(System.out::println);
+
+        List<String> onlineClasses = this.springClasses.stream()
+                .map(oc -> oc.getTitle())
+                .collect(Collectors.toList());
+
+        assertEquals(Arrays.asList(onlineClassTitles), onlineClasses);
     }
 
     @Test
