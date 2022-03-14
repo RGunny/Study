@@ -11,7 +11,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * References
@@ -169,9 +169,21 @@ class StreamTest {
         assertEquals(Arrays.asList(numbers), lists);
     }
 
+    /**
+     * boolean anyMatch(Predicate<? super T> predicate)
+     * Returns whether any elements of this stream match the provided predicate.
+     * May not evaluate the predicate on all elements if not necessary for determining the result.
+     * If the stream is empty then false is returned and the predicate is not evaluated.
+     * This is a short-circuiting terminal operation.
+     *
+     * API Note:
+     * This method evaluates the existential quantification of the predicate over the elements of the stream (for some x P(x)).
+     */
     @Test
-    void 자바_수업중에_Test_들어있는_수업이_있는지_확인() {
-
+    void stream_anyMatch() {
+        // 자바 수업중에 Test 들어있는 수업이 있는지 확인
+        assertTrue(javaClasses.stream()
+                .anyMatch(oc -> oc.getTitle().contains("Test")));
     }
 
     @Test
