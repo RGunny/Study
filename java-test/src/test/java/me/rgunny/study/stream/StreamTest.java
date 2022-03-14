@@ -56,7 +56,7 @@ class StreamTest {
 
         List<Integer> onlineClasses = springClasses.stream()
                 .filter(oc -> oc.getTitle().startsWith("spring"))
-                .map(oc -> oc.getId())
+                .map(OnlineClass::getId)
                 .collect(Collectors.toList());
 
         assertEquals(Arrays.asList(onlineClassIds), onlineClasses);
@@ -76,7 +76,7 @@ class StreamTest {
 
         List<Integer> onlineClasses = springClasses.stream()
                 .filter(Predicate.not(OnlineClass::isClosed))
-                .map(oc -> oc.getId())
+                .map(OnlineClass::getId)
                 .collect(Collectors.toList());
 
         assertEquals(Arrays.asList(onlineClassIds), onlineClasses);
@@ -97,7 +97,7 @@ class StreamTest {
                 .forEach(System.out::println);
 
         List<String> onlineClasses = this.springClasses.stream()
-                .map(oc -> oc.getTitle())
+                .map(OnlineClass::getTitle)
                 .collect(Collectors.toList());
 
         assertEquals(Arrays.asList(onlineClassTitles), onlineClasses);
@@ -127,7 +127,7 @@ class StreamTest {
                 .forEach(oc -> System.out.println(oc.getId()));
         List<Integer> onlineClasses = gunnyEvents.stream()
                 .flatMap(Collection::stream)
-                .map(oc -> oc.getId())
+                .map(OnlineClass::getId)
                 .collect(Collectors.toList());
 
         assertEquals(Arrays.asList(onlineClassIds), onlineClasses);
@@ -178,17 +178,15 @@ class StreamTest {
      *
      * API Note:
      * This method evaluates the existential quantification of the predicate over the elements of the stream (for some x P(x)).
+     *
+     * Similar method
+     * - anyMatch(), allMatch(), noneMatch()
      */
     @Test
     void stream_anyMatch() {
         // 자바 수업중에 Test 들어있는 수업이 있는지 확인
         assertTrue(javaClasses.stream()
                 .anyMatch(oc -> oc.getTitle().contains("Test")));
-    }
-
-    @Test
-    void 스프링_수업_중에_제목에_spring이_들어간_것만_모아서_List로_만들기() {
-
     }
 
 }
