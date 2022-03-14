@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -132,9 +133,40 @@ class StreamTest {
         assertEquals(Arrays.asList(onlineClassIds), onlineClasses);
     }
 
+    /**
+     * static <T> Stream<T> iterate(T seed, UnaryOperator<T> f)
+     * Returns an infinite sequential ordered Stream produced by iterative application of a function f to an initial element seed,
+     * producing a Stream consisting of seed, f(seed), f(f(seed)), etc.
+     * The first element (position 0) in the Stream will be the provided seed.
+     * For n > 0, the element at position n, will be the result of applying the function f to the element at position n - 1.
+     *
+     * Type Parameters:
+     * T - the type of stream elements
+     * Parameters:
+     * seed - the initial element
+     * f - a function to be applied to the previous element to produce a new element
+     * Returns:
+     * a new sequential Stream
+     */
     @Test
-    void T_10부터_1씩_증가하는_무제한_스트림중에서_앞에_10개_빼고_최대_10개_까지만() {
+    void stream_iterate() {
 
+        // 10부터 1씩 증가하는 무제한 스트림중에서 앞에 10개 빼고 최대 10개 까지만
+        Stream.iterate(10, i -> i + 1); // intermediate operation
+
+        Stream.iterate(10, i -> i + 1)
+                .skip(10)
+                .limit(10)
+                .forEach(System.out::println);
+
+        Integer[] numbers = {20, 21, 22, 23, 24, 25, 26, 27, 28, 29};
+
+        List<Integer> lists = Stream.iterate(10, i -> i + 1)
+                .skip(10)
+                .limit(10)
+                .collect(Collectors.toList());
+
+        assertEquals(Arrays.asList(numbers), lists);
     }
 
     @Test
