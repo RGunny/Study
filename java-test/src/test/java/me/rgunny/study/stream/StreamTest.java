@@ -1,13 +1,15 @@
 package me.rgunny.study.stream;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StreamTest {
 
@@ -50,8 +52,52 @@ class StreamTest {
                 .map(oc -> oc.getId())
                 .collect(Collectors.toList());
 
-        Assertions.assertEquals(Arrays.asList(onlineClassIds), onlineClasses);
+        assertEquals(Arrays.asList(onlineClassIds), onlineClasses);
     }
 
+    /**
+     * Predicate Functional Interface 내부 `not` static method 를 사용하여 메서드 레퍼런스 반대 구현
+     */
+    @Test
+    void stream_filter_predicate_not_test() {
+        Integer[] onlineClassIds = {3, 4, 5};
+
+        // closed 되지 않은 수업
+        springClasses.stream()
+                .filter(oc -> !oc.isClosed())
+                .forEach(oc -> System.out.println(oc.getId()));
+
+        List<Integer> onlineClasses = springClasses.stream()
+                .filter(Predicate.not(OnlineClass::isClosed))
+                .map(oc -> oc.getId())
+                .collect(Collectors.toList());
+
+        assertEquals(Arrays.asList(onlineClassIds), onlineClasses);
+    }
+
+    @Test
+    void 수업_이름_모아서_스트림_만들기() {
+
+    }
+
+    @Test
+    void 두_수업_목록에_들어있는_모든_수업_아이디_출력() {
+
+    }
+
+    @Test
+    void T_10부터_1씩_증가하는_무제한_스트림중에서_앞에_10개_빼고_최대_10개_까지만() {
+
+    }
+
+    @Test
+    void 자바_수업중에_Test_들어있는_수업이_있는지_확인() {
+
+    }
+
+    @Test
+    void 스프링_수업_중에_제목에_spring이_들어간_것만_모아서_List로_만들기() {
+
+    }
 
 }
