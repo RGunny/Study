@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -101,9 +102,34 @@ class StreamTest {
         assertEquals(Arrays.asList(onlineClassTitles), onlineClasses);
     }
 
+    /**
+     * <R> Stream<R> flatMap(Function<? super T,? extends Stream<? extends R>> mapper)
+     * Returns a stream consisting of the results of replacing each element of this stream with the contents
+     * of a mapped stream produced by applying the provided mapping function to each element.
+     * Each mapped stream is closed after its contents have been placed into this stream.
+     * (If a mapped stream is null an empty stream is used, instead.)
+     * This is an intermediate operation.
+     *
+     * API Note:
+     * The flatMap() operation has the effect of applying a one-to-many transformation to the elements of the stream,
+     * and then flattening the resulting elements into a new stream.
+     *
+     * flatMap 은 특수한 형태의 map operation 이다.
+     */
     @Test
-    void 두_수업_목록에_들어있는_모든_수업_아이디_출력() {
+    void stream_flatMap() {
+        Integer[] onlineClassIds = {1, 2, 3, 4, 5, 6, 7, 8};
 
+        // 두 수업 목록에 들어있는 모든 수업 아이디 출력
+        gunnyEvents.stream()
+                .flatMap(Collection::stream) // (list -> list.stream())
+                .forEach(oc -> System.out.println(oc.getId()));
+        List<Integer> onlineClasses = gunnyEvents.stream()
+                .flatMap(Collection::stream)
+                .map(oc -> oc.getId())
+                .collect(Collectors.toList());
+
+        assertEquals(Arrays.asList(onlineClassIds), onlineClasses);
     }
 
     @Test
