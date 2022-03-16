@@ -26,6 +26,9 @@ public class StreamParallel {
 
     /**
      * 순차 스트림을 병렬 스트림으로 변환한 메서드
+     * - 기존 리듀싱 연산이 병렬로 처리됨
+     * - 스트림이 여러 청크로 분할되어 있음
+     * - 마지막으로 리듀싱 연산으로 생성된 부분 결과를 다시 리듀싱 연산으로 합쳐서 전체 스트림의 리듀싱 결과를 도출
      */
     public long parallelSum(long n) {
         return Stream.iterate(1L, i -> i + 1)
