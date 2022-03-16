@@ -24,4 +24,14 @@ public class StreamParallel {
         return result;
     }
 
+    /**
+     * 순차 스트림을 병렬 스트림으로 변환한 메서드
+     */
+    public long parallelSum(long n) {
+        return Stream.iterate(1L, i -> i + 1)
+                .limit(n)
+                .parallel() // 스트림을 병렬 스트림으로 변환
+                .reduce(0L, Long::sum);
+    }
+
 }
