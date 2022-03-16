@@ -13,4 +13,15 @@ public class StreamParallel {
                 .reduce(0L, Long::sum); // 모든 숫자를 더하는 스트림 리듀싱 연산
     }
 
+    /**
+     * legacy style
+     */
+    public long iterativeSum(long n) {
+        long result = 0;
+        for (long i = 1L; i <= n; i++) {
+            result += i;
+        }
+        return result;
+    }
+
 }
