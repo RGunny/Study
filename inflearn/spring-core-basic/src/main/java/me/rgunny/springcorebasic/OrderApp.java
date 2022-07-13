@@ -2,15 +2,16 @@ package me.rgunny.springcorebasic;
 
 import me.rgunny.springcorebasic.member.Grade;
 import me.rgunny.springcorebasic.member.Member;
-import me.rgunny.springcorebasic.member.MemberServiceImpl;
+import me.rgunny.springcorebasic.member.MemberService;
 import me.rgunny.springcorebasic.order.Order;
-import me.rgunny.springcorebasic.order.OrderServiceImpl;
+import me.rgunny.springcorebasic.order.OrderService;
 
 public class OrderApp {
 
     public static void main(String[] args) {
-        MemberServiceImpl memberService = new MemberServiceImpl();
-        OrderServiceImpl orderService = new OrderServiceImpl();
+        AppConfig appConfig = new AppConfig();
+        MemberService memberService = appConfig.memberService();
+        OrderService orderService = appConfig.orderService();
 
         Long memberId = 1L;
         Member member = new Member(memberId, "memberA", Grade.VIP);
