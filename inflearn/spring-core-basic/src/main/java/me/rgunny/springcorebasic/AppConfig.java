@@ -1,7 +1,7 @@
 package me.rgunny.springcorebasic;
 
 import me.rgunny.springcorebasic.discount.DiscountPolicy;
-import me.rgunny.springcorebasic.discount.FixDiscountPolicy;
+import me.rgunny.springcorebasic.discount.RateDiscountPolicy;
 import me.rgunny.springcorebasic.member.MemberService;
 import me.rgunny.springcorebasic.member.MemberServiceImpl;
 import me.rgunny.springcorebasic.member.MemoryMemberRepository;
@@ -23,6 +23,6 @@ public class AppConfig {
     }
 
     public DiscountPolicy discountPolicy() {
-        return new FixDiscountPolicy();
+        return new RateDiscountPolicy();
     }
 }
