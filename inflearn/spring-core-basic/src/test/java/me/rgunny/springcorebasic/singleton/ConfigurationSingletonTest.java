@@ -33,4 +33,18 @@ public class ConfigurationSingletonTest {
         // 모두 같은 인스턴스를 참고하고 있다.
         assertThat(memberRepository1).isSameAs(memberRepository2).isSameAs(memberRepository);
     }
+
+    @Test
+    @DisplayName("@Configuration 설정 유무에 따른 싱글톤 보장 확인")
+    void configurationDeepTest() {
+        ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+        AppConfig bean = ac.getBean(AppConfig.class);
+
+        // bean = class me.rgunny.springcorebasic.AppConfig$$EnhancerBySpringCGLIB$$520df95c
+        // -> 내가 만든 클래스가 아닌, 스프링이 CGLIB 라는 바이트코드 조작 라이브러리를 사용해서 AppConfig 클래스를 상속받은 임의의 다른 클래스를 만들고,
+        // 그 다른 클래스를 스프링 빈으로 등록한 것이다.
+        // -> 이 임의의 다른 클래스가 싱글톤이 보장되도록 해준다.
+        // @Configuration을 사용하지 않고, @Bean으로만 생성하게되면 CGLIB가 아닌, 기존 순수한 클래스의 빈이 생성되지만, 싱글톤을 보장하지 않게 된다.
+        System.out.println("bean = " + bean.getClass());
+    }
 }
