@@ -2,7 +2,9 @@ package me.rgunny.springcorebasic.discount;
 
 import me.rgunny.springcorebasic.member.Grade;
 import me.rgunny.springcorebasic.member.Member;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RateDiscountPolicy implements DiscountPolicy{
 
     private int discountPercent = 10;
