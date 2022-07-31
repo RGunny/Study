@@ -2,10 +2,13 @@ package me.rgunny.springcorebasic.discount;
 
 import me.rgunny.springcorebasic.member.Grade;
 import me.rgunny.springcorebasic.member.Member;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 @Component
-public class RateDiscountPolicy implements DiscountPolicy{
+//@Qualifier("mainDiscountPolicy")
+@Primary // @Autowired 시 여러 빈이 매칭되면 우선권을 가진다.
+public class RateDiscountPolicy implements DiscountPolicy {
 
     private int discountPercent = 10;
 

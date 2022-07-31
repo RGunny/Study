@@ -1,13 +1,13 @@
 package me.rgunny.springcorebasic.order;
 
-import lombok.RequiredArgsConstructor;
 import me.rgunny.springcorebasic.discount.DiscountPolicy;
 import me.rgunny.springcorebasic.member.Member;
 import me.rgunny.springcorebasic.member.MemberRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService{
 
     /**
@@ -24,11 +24,13 @@ public class OrderServiceImpl implements OrderService{
     private final DiscountPolicy discountPolicy;
 
     // @RequiredArgsConstructor 롬복 애노테이션이 final 키워드가 붙은 필드를 모아 파라미터로 받는 생성자를 자동으로 생성해준다.
-//    @Autowired
-//    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-//        this.memberRepository = memberRepository;
-//        this.discountPolicy = discountPolicy;
-//    }
+    // 조회 빈이 2개 이상일 시, @Qualifier 로 자동 매칭을 시켜 빈을 주입할 수 있다.
+    @Autowired
+//    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
+    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+        this.memberRepository = memberRepository;
+        this.discountPolicy = discountPolicy;
+    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
