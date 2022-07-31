@@ -1,5 +1,6 @@
 package me.rgunny.springcorebasic.order;
 
+import me.rgunny.springcorebasic.annotation.MainDiscountPolicy;
 import me.rgunny.springcorebasic.discount.DiscountPolicy;
 import me.rgunny.springcorebasic.member.Member;
 import me.rgunny.springcorebasic.member.MemberRepository;
@@ -27,7 +28,7 @@ public class OrderServiceImpl implements OrderService{
     // 조회 빈이 2개 이상일 시, @Qualifier 로 자동 매칭을 시켜 빈을 주입할 수 있다.
     @Autowired
 //    public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
     }
