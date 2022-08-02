@@ -25,7 +25,7 @@ public class BeanLifeCycleTest {
      *
      * 스프링은 크게 3가지 방법으로 빈 생명주기 콜백을 지원
      * - 인터페이스(InitializingBean, DisposableBean)
-     * - 설정 정보에 초기화 메서드, 종료 메서드 지정
+     * - 설정 정보에 초기화 메서드, 종료 메서드 지정: @Bean(initMethod = "init", destroyMethod = "close")
      * - @PostConstruct, @PreDestroy 애노테이션 지원
     */
     @Test
@@ -38,7 +38,15 @@ public class BeanLifeCycleTest {
     @Configuration
     static class LiceCycleConfig {
 
-        @Bean
+        /**
+         * 종료 메서드 추론 (@Bean destroyMethod)
+         * - 라이브러리는 대부분 close , shutdown 이라는 이름의 종료 메서드를 사용
+         * - @Bean의 destroyMethod 는 기본값이 (inferred) (추론)으로 등록되어 있음
+         * - 이 추론 기능은 close , shutdown 라는 이름의 메서드를 자동으로 호출. 이름 그대로 종료 메서드를 추론해서 호출
+         * - 따라서 직접 스프링 빈으로 등록하면 종료 메서드는 따로 적어주지 않아도 잘 동작함
+         * - 추론 기능을 사용하기 싫으면 destroyMethod="" 처럼 빈 공백을 지정하면 됨
+         */
+        @Bean(initMethod = "init", destroyMethod = "close")
         public NetworkClient networkClient() {
             NetworkClient networkClient = new NetworkClient();
             networkClient.setUrl("http://hello-spring.dev");
