@@ -2,6 +2,7 @@ package me.rgunny.scope;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
 
@@ -43,6 +44,24 @@ public class SingletonWithPrototypeTest1 {
         assertThat(count2).isEqualTo(2);
     }
 
+    /**
+     * ac.getBean() 을 통해서 항상 새로운 프로토타입 빈이 생성되는 것을 확인
+     * 의존관계를 외부에서 주입(DI) 받는게 아니라 이렇게 직접 필요한 의존관계를 찾는 것을 Dependency Lookup (DL) 의존관계 조회(탐색) 이라함
+     * 그런데 이렇게 스프링의 애플리케이션 컨텍스트 전체를 주입받게 되면, 스프링 컨테이너에 종속적인 코드가 되고, 단위 테스트도 어려워진다.
+     */
+    @Test
+    void singletonClientUsePrototypeManual() {
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(ClientBeanNaive.class, PrototypeBean.class);
+
+        ClientBeanNaive clientBean1 = ac.getBean(ClientBeanNaive.class);
+        int count1 = clientBean1.logic();
+        assertThat(count1).isEqualTo(1);
+
+        ClientBeanNaive clientBean2 = ac.getBean(ClientBeanNaive.class);
+        int count2 = clientBean2.logic();
+        assertThat(count2).isEqualTo(1);
+    }
+
     @Scope("singleton")
     static class ClientBean {
 
@@ -56,6 +75,20 @@ public class SingletonWithPrototypeTest1 {
         public int logic() {
             prototypeBean.addCount();
             return prototypeBean.getCount();
+        }
+    }
+
+    @Scope("singleton")
+    static class ClientBeanNaive {
+
+        @Autowired
+        private ApplicationContext ac;
+
+        public int logic() {
+            PrototypeBean prototypeBean = ac.getBean(PrototypeBean.class);
+            prototypeBean.addCount();
+            int count = prototypeBean.getCount();
+            return count;
         }
     }
 
