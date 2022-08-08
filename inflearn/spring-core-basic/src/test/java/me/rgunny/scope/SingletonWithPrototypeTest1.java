@@ -1,6 +1,7 @@
 package me.rgunny.scope;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -8,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.inject.Provider;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -44,6 +46,32 @@ public class SingletonWithPrototypeTest1 {
         assertThat(count2).isEqualTo(2);
     }
 
+    @Test
+    void singletonClientUsePrototypeByProvider() {
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(ClientBeanByProvider.class, PrototypeBean.class);
+
+        ClientBeanByProvider clientBean1 = ac.getBean(ClientBeanByProvider.class);
+        int count1 = clientBean1.logic();
+        assertThat(count1).isEqualTo(1);
+
+        ClientBeanByProvider clientBean2 = ac.getBean(ClientBeanByProvider.class);
+        int count2 = clientBean2.logic();
+        assertThat(count2).isEqualTo(1);
+    }
+
+    @Test
+    void singletonClientUsePrototypeByObjectProvider() {
+        AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(ClientBeanByObjectProvider.class, PrototypeBean.class);
+
+        ClientBeanByObjectProvider clientBean1 = ac.getBean(ClientBeanByObjectProvider.class);
+        int count1 = clientBean1.logic();
+        assertThat(count1).isEqualTo(1);
+
+        ClientBeanByObjectProvider clientBean2 = ac.getBean(ClientBeanByObjectProvider.class);
+        int count2 = clientBean2.logic();
+        assertThat(count2).isEqualTo(1);
+    }
+
     /**
      * ac.getBean() 을 통해서 항상 새로운 프로토타입 빈이 생성되는 것을 확인
      * 의존관계를 외부에서 주입(DI) 받는게 아니라 이렇게 직접 필요한 의존관계를 찾는 것을 Dependency Lookup (DL) 의존관계 조회(탐색) 이라함
@@ -60,6 +88,42 @@ public class SingletonWithPrototypeTest1 {
         ClientBeanNaive clientBean2 = ac.getBean(ClientBeanNaive.class);
         int count2 = clientBean2.logic();
         assertThat(count2).isEqualTo(1);
+    }
+
+    @Scope("singleton")
+    static class ClientBeanByProvider {
+
+        private final Provider<PrototypeBean> prototypeBeanProvider; // 생성시점에 주입
+
+        @Autowired
+        public ClientBeanByProvider(Provider<PrototypeBean> prototypeBeanProvider) {
+            this.prototypeBeanProvider = prototypeBeanProvider;
+        }
+
+
+        public int logic() {
+            PrototypeBean prototypeBean = prototypeBeanProvider.get();
+            prototypeBean.addCount();
+            return prototypeBean.getCount();
+        }
+    }
+
+    @Scope("singleton")
+    static class ClientBeanByObjectProvider {
+
+        private final ObjectProvider<PrototypeBean> prototypeBeanObjectProvider; // 생성시점에 주입
+
+        @Autowired
+        public ClientBeanByObjectProvider(ObjectProvider<PrototypeBean> prototypeBeanObjectProvider) {
+            this.prototypeBeanObjectProvider = prototypeBeanObjectProvider;
+        }
+
+
+        public int logic() {
+            PrototypeBean prototypeBean = prototypeBeanObjectProvider.getObject();
+            prototypeBean.addCount();
+            return prototypeBean.getCount();
+        }
     }
 
     @Scope("singleton")
