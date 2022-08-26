@@ -169,4 +169,37 @@ public class QuerydslBasicTest {
         assertThat(member6.getUsername()).isEqualTo("member6");
         assertThat(memberNull.getUsername()).isNull();
     }
+
+    @Test
+    void paging1() {
+        List<Member> result = queryFactory
+                .selectFrom(member)
+                .orderBy(member.username.desc())
+                .offset(1) // 0부터 시작(zero index) .limit(2)
+                .limit(2) // 최대 2건 조회
+                .fetch();
+
+        assertThat(result.size()).isEqualTo(2);
+    }
+
+    /**
+     * 페이징 쿼리 작성시, 데이터를 조회하는 쿼리는 여러 테이블을 조인하지만, count 쿼리는 조인이 필요없는 경우가 있다.
+     * querydsl 의 자동회된 count 쿼리는 원본 쿼리와 같이 모두 조인해버리기 때문에 성능이 떨어질 수 있다.
+     * count 쿼리에 조인이 필요없는 성능최적화가 필요한 경우
+     * -> count 전용 쿼리 별도 작성
+     */
+    @Test
+    void paging2() {
+        QueryResults<Member> queryResults = queryFactory
+                .selectFrom(member)
+                .orderBy(member.username.desc())
+                .offset(1)
+                .limit(2)
+                .fetchResults();
+
+        assertThat(queryResults.getTotal()).isEqualTo(4);
+        assertThat(queryResults.getLimit()).isEqualTo(2);
+        assertThat(queryResults.getOffset()).isEqualTo(1);
+        assertThat(queryResults.getResults().size()).isEqualTo(2);
+    }
 }
