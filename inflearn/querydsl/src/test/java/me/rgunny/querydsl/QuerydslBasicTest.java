@@ -1,5 +1,6 @@
 package me.rgunny.querydsl;
 
+import com.querydsl.core.QueryResults;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import me.rgunny.querydsl.entity.Member;
 import me.rgunny.querydsl.entity.QMember;
@@ -11,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import java.util.List;
 
 import static me.rgunny.querydsl.entity.QMember.member;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -113,6 +116,31 @@ public class QuerydslBasicTest {
                 .fetchOne();
 
         assertThat(findMember.getUsername()).isEqualTo("member1");
+    }
+
+    @Test
+    void resultFetch() {
+        List<Member> fetch = queryFactory
+                .selectFrom(member)
+                .fetch(); // 리스트 조회, 데이터 없으면 빈 리스트 반환
+
+        Member fetchOne = queryFactory
+                .selectFrom(QMember.member)
+                .fetchOne(); // 단 건 조회, 데이터 없으면 `null` 반환, 둘 이상이면 `com.querydsl.NonUniqueResultException`
+
+        Member fetchFirst = queryFactory
+                .selectFrom(QMember.member)
+                .fetchFirst(); // .limit(1).fetchOne()
+
+        QueryResults<Member> fetchResults = queryFactory
+                .selectFrom(member)
+                .fetchResults(); // 페이징 정보 포함, total count 쿼리 추가 실행
+        fetchResults.getTotal();
+        fetchResults.getResults();
+
+        long total = queryFactory
+                .selectFrom(member)
+                .fetchCount(); // count 쿼리로 변경해서 count 수 조회
     }
 
 
