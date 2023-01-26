@@ -11,6 +11,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * http://localhost:8080/request-body-string
+ *
+ * TEXT 형식 전송
+ * content-type: text/plain
+ * message body: hello
+ */
 @WebServlet(name = "requestBodyStringServlet", urlPatterns = "/request-body-string")
 public class RequestBodyStringServlet extends HttpServlet {
 
