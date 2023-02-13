@@ -19,7 +19,7 @@ public class MemberFormServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         response.setContentType("text/html");
-        request.setCharacterEncoding("utf-8");
+        response.setCharacterEncoding("utf-8");
 
         PrintWriter w = response.getWriter();
         w.write("<!DOCTYPE html>\n" +
@@ -32,7 +32,8 @@ public class MemberFormServlet extends HttpServlet {
                 "<form action=\"/servlet/members/save\" method=\"post\">\n" +
                 "    username: <input type=\"text\" name=\"username\" />\n" +
                 "    age:      <input type=\"text\" name=\"age\" />\n" +
-                " <button type=\"submit\">전송</button>\n" + "</form>\n" +
+                "    <button type=\"submit\">전송</button>\n" +
+                "</form>\n" +
                 "</body>\n" +
                 "</html>\n");
     }

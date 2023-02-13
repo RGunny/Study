@@ -30,7 +30,7 @@ public class MemberSaveServlet extends HttpServlet {
         PrintWriter w = response.getWriter();
         w.write("<html>\n" +
                 "<head>\n" +
-                " <meta charset=\"UTF-8\">\n" + "</head>\n" +
+                "<meta charset=\"UTF-8\">\n" + "</head>\n" +
                 "<body>\n" +
                 "성공\n" +
                 "<ul>\n" +
