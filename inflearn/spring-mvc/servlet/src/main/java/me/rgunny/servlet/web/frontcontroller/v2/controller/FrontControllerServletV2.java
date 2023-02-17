@@ -36,6 +36,8 @@ public class FrontControllerServletV2 extends HttpServlet {
             return;
         }
 
+        // ControllerV2의 반환 타입이 MyView 이므로 프론트 컨트롤러는 컨트롤러의 호출 결과로 MyView 를 반환 받는다.
+        // 그리고 view.render() 를 호출하면 forward 로직을 수행해서 JSP가 실행된다.
         MyView view = controller.process(request, response);
         view.render(request, response);
     }
