@@ -1,9 +1,9 @@
-package me.rgunny.servlet.web.v4;
+package me.rgunny.servlet.web.frontcontroller.v4;
 
 import me.rgunny.servlet.web.frontcontroller.MyView;
-import me.rgunny.servlet.web.v4.controller.MemberFormControllerV4;
-import me.rgunny.servlet.web.v4.controller.MemberListControllerV4;
-import me.rgunny.servlet.web.v4.controller.MemberSaveControllerV4;
+import me.rgunny.servlet.web.frontcontroller.v4.controller.MemberFormControllerV4;
+import me.rgunny.servlet.web.frontcontroller.v4.controller.MemberSaveControllerV4;
+import me.rgunny.servlet.web.frontcontroller.v4.controller.MemberListControllerV4;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
