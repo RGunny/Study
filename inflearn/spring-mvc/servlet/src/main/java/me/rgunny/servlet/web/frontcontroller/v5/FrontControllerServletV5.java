@@ -24,6 +24,14 @@ import java.util.Map;
 
 /**
  * 어댑터 패턴 사용
+ *
+ * 커스텀 프레임워크 -> 스프링 MVC 비교
+ *  FrontController -> DispatcherServlet
+ *  handlerMappingMap -> HandlerMapping
+ *  MyHandlerAdapter -> Handler Adapter
+ *  ModelView -> ModelAndView
+ *  viewResolver -> ViewResolver
+ *  MyView -> View
  */
 @WebServlet(name = "frontControllerServletV5",  urlPatterns = "/front-controller/v5/*")
 public class FrontControllerServletV5 extends HttpServlet {
