@@ -38,7 +38,7 @@ import javax.servlet.http.HttpServletResponse;
  *  (@Component("/springmvc/old-controller") 로 등록된 Spring Bean 이름인 /springmvc/old-controller 을 찾음)
  *
  * 2. 핸들러 어댑터 조회
- * 2.1 HandlerAdapter 의 supports() 를 순서대로 호출한다.
+ * 2.1 HandlerAdapter 의 supports() 를 순서대로 호출한다.ㄱ
  * 2.2 SimpleControllerHandlerAdapter 가 Controller 인터페이스를 지원하므로 대상이 된다.
  *
  * 3. 핸들러 어댑터 실행
@@ -48,9 +48,41 @@ import javax.servlet.http.HttpServletResponse;
 @Component("/springmvc/old-controller") // @Component: 이 컨트롤러는 /springmvc/old-controller 라는 이름의 스프링 빈으로 등록. 빈의 이름으로 URL을 매핑
 public class OldController implements Controller {
 
+    /**
+     * @ ViewResolver 동작과정
+     *
+     * 1. 핸들러 어댑터 호출
+     *  핸들러 어댑터를 통해 new-form 이라는 논리 뷰 이름을 획득.
+     *
+     * 2. ViewResolver 호출
+     *  new-form 이라는 뷰 이름으로 viewResolver 를 순서대로 호출.
+     *  BeanNameViewResolver 는 new-form 이라는 이름의 스프링 빈으로 등록된 뷰를 찾아야 하는데 없다. InternalResourceViewResolver 가 호출.
+     *
+     * 3. InternalResourceViewResolver (내부에서 자원 이동하여 찾는것 ex. servlet -> jsp)
+     *  이 뷰 리졸버는 InternalResourceViewResolver.buildView() 를 통해 InternalResourceView 를 반환.
+     *
+     * 4. 뷰 - InternalResourceView
+     *  InternalResourceView 는 JSP 처럼 포워드 forward() 를 호출해서 처리할 수 있는 경우에 사용.
+     *  실행 경로 : InternalResourceView.renderMergedOutputModel
+     *  -> RequestDispatcher rd = getRequestDispatcher(request, dispatcherPath);
+     *  -> rd.forward(request, response);
+     *
+     * 5. view.render()
+     *  view.render() 가 호출되고 InternalResourceView 는 forward() 를 사용해서 JSP를 실행.
+     *
+     * @ References
+     * InternalResourceViewResolver 는 만약 JSTL 라이브러리가 있으면 InternalResourceView 를 상속받은 JstlView 를 반환.
+     * JstlView 는 JSTL 태그 사용시 약간의 부가 기능이 추가.
+     *
+     * 다른 뷰는 실제 뷰를 렌더링하지만, JSP 의 경우 forward() 통해서 해당 JSP 로 이동(실행)해야 렌더링이 됨.
+     * JSP 를 제외한 나머지 뷰 템플릿들은 forward() 과정 없이 바로 렌더링 됨.
+     *
+     * Thymeleaf 뷰 템플릿을 사용하면 ThymeleafViewResolver 를 등록해야 함.
+     * 최근에는 라이브러리만 추가하면 스프링 부트가 이런 작업도 모두 자동화함.
+     */
     @Override
     public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         System.out.println("OldController.handleRequest");
-        return null;
+        return new ModelAndView("new-form"); // 논리적 이름 new-form 을 넣어 viewResolver 에서 물리적 이름 /WEB-INF/views/new-form 반환ㄲ
     }
 }
