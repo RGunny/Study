@@ -1,7 +1,9 @@
 package me.rgunny.springmvc.basic.request;
 
 import lombok.extern.slf4j.Slf4j;
+import me.rgunny.springmvc.basic.HelloData;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -112,4 +114,37 @@ public class RequestParamController {
         return "ok";
     }
 
+    /**
+     * @ModelAttribute
+     * 참고: model.addAttribute(helloData) 코드도 함께 자동 적용됨
+     *
+     * 스프링 MVC는 @ModelAttribute 가 있으면 다음을 실행함
+     * 1. HelloData 객체를 생성
+     * 2. 요청 파라미터의 이름으로 HelloData 객체의 프로퍼티를 찾음
+     * 3. 해당 프로퍼티의 setter 를 호출해서 파라미터의 값을 입력(바인딩) 함
+     * ex) 파라미터 이름이 username 이면 setUsername() 메서드를 찾아서 호출하면서 값을 입력함
+     *
+     * 프로퍼티
+     * 객체에 getUsername(), setUsername() 메서드가 있으면, 이 객체는 username 이라는 프로퍼티를 가지고 있음
+     * username 프로퍼티의 값을 변경하면 setUsername() 이 호출되고, 조회하면 getUsername() 이 호출됨
+     */
+    @ResponseBody
+    @RequestMapping("/model-attribute-v1")
+    public String modelAttributeV1(@ModelAttribute HelloData helloData) {
+        log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+        return "ok";
+    }
+
+    /**
+     * @ModelAttribute 생략 가능
+     *
+     * String, int 같은 단순 타입 : @RequestParam
+     * argument resolver 로 지정해둔 타입 외 : @ModelAttribute
+     */
+    @ResponseBody
+    @RequestMapping("/model-attribute-v2")
+    public String modelAttributeV2(HelloData helloData) {
+        log.info("username={}, age={}", helloData.getUsername(), helloData.getAge());
+        return "ok";
+    }
 }
