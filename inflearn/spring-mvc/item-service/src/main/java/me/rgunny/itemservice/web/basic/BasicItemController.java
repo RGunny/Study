@@ -95,6 +95,23 @@ public class BasicItemController {
         return "basic/item";
     }
 
+    /**
+     * 새로고침 : 마지막에 했던 요청을 다시 요청
+     *  --> POST 가 계속 저장되는 문제
+     *  --> ID만 다른 상품등록이 계속 등록됨
+     *
+     * PRG : Post/Redirect/Get
+     *   새로고침 문제 해결 : 상품 저장(POST /add) 후 뷰 템플릿으로 이동하는 것이 아닌, 상품 상세 화면으로 리다이렉트 호출 (Redirect /items/{id}
+     *   웹 브라우저는 리다이렉트로 인해 상품 저장 후 상품 상세 화면으로 이동
+     *   즉, 마지막 호출 내용은 상품 상세 화면인, GET /items/{id}
+     *
+     */
+//    @PostMapping("/add")
+    public String addItemV5(Item item) {
+        itemRepository.save(item);
+        return "redirect:/basic/items/" + item.getId();
+    }
+
     @GetMapping("/{itemId}/edit")
     public String editForm(@PathVariable Long itemId, Model model) {
         Item item = itemRepository.findById(itemId);
