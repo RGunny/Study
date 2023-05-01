@@ -95,6 +95,25 @@ public class BasicItemController {
         return "basic/item";
     }
 
+    @GetMapping("/{itemId}/edit")
+    public String editForm(@PathVariable Long itemId, Model model) {
+        Item item = itemRepository.findById(itemId);
+        model.addAttribute("item", item);
+        return "basic/editForm";
+    }
+
+    /**
+     * 스프링은 redirect:/... 으로 편리하게 리다이렉트 지원
+     * 컨트롤러에 매핑된 @PathVariable 값은 redirect 에도 사용 가능
+     *
+     * HTML Form 전송은 PUT, PATCH 를 지원하지 않고, GET, POST 만 지원
+     */
+    @PostMapping("/{itemId}/edit")
+    public String edit(@PathVariable Long itemId, @ModelAttribute Item item) {
+        itemRepository.update(itemId, item);
+        return "redirect:/basic/items/{itemId}";
+    }
+
     /**
      * 테스트용 데이터 추가
      */
