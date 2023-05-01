@@ -6,6 +6,7 @@ import me.rgunny.itemservice.domain.ItemRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -104,12 +105,28 @@ public class BasicItemController {
      *   새로고침 문제 해결 : 상품 저장(POST /add) 후 뷰 템플릿으로 이동하는 것이 아닌, 상품 상세 화면으로 리다이렉트 호출 (Redirect /items/{id}
      *   웹 브라우저는 리다이렉트로 인해 상품 저장 후 상품 상세 화면으로 이동
      *   즉, 마지막 호출 내용은 상품 상세 화면인, GET /items/{id}
-     *
      */
 //    @PostMapping("/add")
     public String addItemV5(Item item) {
         itemRepository.save(item);
-        return "redirect:/basic/items/" + item.getId();
+        return "redirect:/basic/items/" + item.getId(); // redirect 에서 URL에 변수를 더해 사용하는 것은 URL 인코딩이 안되기 때문에 위험 -> RedirectAttributes 사용
+    }
+
+    /**
+     * 호출된 Redirect URI : http://localhost:8080/basic/items/3?status=true
+     *
+     * RedirectAttributes :
+     *   URL 인코딩 : redirect:/basic/items/{itemId}
+     *   pathVariable : {itemId}
+     *   쿼리 파라미터 : ?status=true
+     *
+     */
+    @PostMapping("/add")
+    public String addItemV6(Item item, RedirectAttributes redirectAttributes) {
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", savedItem.getId());
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/basic/items/{itemId}";
     }
 
     @GetMapping("/{itemId}/edit")
