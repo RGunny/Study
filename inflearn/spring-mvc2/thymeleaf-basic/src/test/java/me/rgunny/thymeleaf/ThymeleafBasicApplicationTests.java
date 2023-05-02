@@ -1,4 +1,4 @@
-package me.rgunny.thymeleafbasic;
+package me.rgunny.thymeleaf;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
