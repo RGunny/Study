@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>리터럴</h1>
+<ul>
+<!--    주의!!! 아래 주석은 예외 발생 : 타임리프는 '' 로 문자열을 구분하는데, 공백없이 이어지는 문자열은 허용함. 아래는 공백있는 문자열이라 '' 필요-->
+<!--    <li>"hello world!" = <span th:text="hello world!"></span></li>-->
+    <li>'hello' + ' world!' = <span th:text="'hello' + ' world!'"></span></li>
+    <li>'hello world!' = <span th:text="'hello world!'"></span></li>
+    <li>'hello ' + ${data} = <span th:text="'hello '" + ${data}></span></li>
+    <li>리터럴 대체 |hello ${data}| = <span th:text="|hello ${data}|"></span></li>
+
+</ul>
+
+</body>
+</html>
