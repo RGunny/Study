@@ -119,8 +119,14 @@ public class BasicController {
 
     @GetMapping("/each")
     public String each(Model model) {
-        addUses(model );
+        addUses(model);
         return "basic/each";
+    }
+
+    @GetMapping("/condition")
+    public String condition(Model model) {
+        addUses(model);
+        return "basic/condition";
     }
 
     public void addUses(Model model) {
