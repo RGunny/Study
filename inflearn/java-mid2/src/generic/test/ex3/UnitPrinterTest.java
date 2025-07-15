@@ -14,7 +14,7 @@ public class UnitPrinterTest {
         shuttle2.in(new Zergling("저글링", 35));
 
         Shuttle<Zealot> shuttle3 = new Shuttle<>();
-        shuttle3.in(new Ze alot("질럿", 100));
+        shuttle3.in(new Zealot("질럿", 100));
 
         UnitPrinter.printV1(shuttle1);
         UnitPrinter.printV2(shuttle1);
