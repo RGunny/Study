@@ -1,8 +1,7 @@
 package me.rgunny.study.javaenum;
 
+import jakarta.persistence.*;
 import lombok.*;
-
-import javax.persistence.*;
 
 @Entity
 @Getter
