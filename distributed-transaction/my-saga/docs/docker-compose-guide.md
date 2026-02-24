@@ -70,9 +70,9 @@ Kafka의 리스너 설정은 "누가 어떤 주소로 접근하는가"를 결정
 ```
 ┌─── Docker Network (saga-network) ───┐
 │                                      │
-│  service_1 ──→ kafka:29092 (PLAINTEXT)│
-│  service_2 ──→ kafka:29092           │
-│  service_3 ──→ kafka:29092           │
+│  account-service ──→ kafka:29092 (PLAINTEXT)│
+│  transaction-service ──→ kafka:29092       │
+│  notification-service ──→ kafka:29092      │
 │                                      │
 └──────────────────────────────────────┘
          ↕ port forward (9092)
