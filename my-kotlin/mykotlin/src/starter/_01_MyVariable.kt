@@ -1,18 +1,14 @@
 package starter
 
-class MyVariable {
+class _01_MyVariable {
 
     fun variable() {
         var number1 = 10L
         val number2 = 10L
 
         val number3 = 10L
-        val car = Car("차")
+        val car = Car("tesla", "white")
     }
 
-
-}
-
-class Car(string: String) {
 
 }

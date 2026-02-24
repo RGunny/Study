@@ -1,6 +1,6 @@
 package starter;
 
-public class _03_MyType {
+public class _04_MyType {
 
     public static void main(String[] args) {
 

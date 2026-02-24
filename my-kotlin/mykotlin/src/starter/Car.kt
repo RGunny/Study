@@ -1,4 +1,7 @@
 package starter
 
-class Car {
+class Car(
+    val model: String,
+    val color: String
+) {
 }
