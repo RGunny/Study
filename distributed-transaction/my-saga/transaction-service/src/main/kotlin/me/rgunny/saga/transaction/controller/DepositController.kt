@@ -1,18 +1,23 @@
-package com.saga.transaction.controller
+package me.rgunny.saga.transaction.controller
 
-import com.saga.transaction.service.DepositService
-import com.saga.common.dto.DepositRequest
-import com.saga.common.dto.DepositResponse
+import me.rgunny.saga.transaction.service.DepositService
+import me.rgunny.saga.common.dto.DepositRequest
+import me.rgunny.saga.common.dto.DepositResponse
 import org.springframework.web.bind.annotation.*
 
+/**
+ * 입금 요청을 수신하는 내부 API 컨트롤러.
+ *
+ * Orchestration 패턴에서 Account Service가 REST 호출로 입금을 요청할 때 사용된다.
+ */
 @RestController
 @RequestMapping("/internal")
 class DepositController(
     private val depositService: DepositService
 ) {
+    /** 입금 요청을 처리하고 결과를 반환한다. */
     @PostMapping("/deposit")
     fun processDeposit(@RequestBody request: DepositRequest): DepositResponse {
         return depositService.processDeposit(request)
     }
 }
-

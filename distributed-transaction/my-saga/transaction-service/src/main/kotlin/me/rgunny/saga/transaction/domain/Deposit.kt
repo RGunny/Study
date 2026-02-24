@@ -1,4 +1,4 @@
-package com.saga.transaction.domain
+package me.rgunny.saga.transaction.domain
 
 import jakarta.persistence.*
 import java.math.BigDecimal
@@ -29,4 +29,3 @@ class Deposit(
     @Column(name = "created_at")
     val createdAt: LocalDateTime = LocalDateTime.now()
 )
-

@@ -26,5 +26,19 @@ data class DepositSuccessEvent(
 data class DepositFailedEvent(
     val sagaId: String,
     val accountNumber: String,
+    val reason: String,
+    val amount: BigDecimal,
+    val fromAccountNumber: String
+)
+
+// ===== Notification =====
+data class NotificationSuccessEvent(
+    val sagaId: String,
+    val accountNumber: String,
+)
+
+data class NotificationFailedEvent(
+    val sagaId: String,
+    val accountNumber: String,
     val reason: String
 )

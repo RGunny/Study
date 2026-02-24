@@ -1,17 +1,18 @@
-package me.rgunny.saga.transaction.domain
+package me.rgunny.saga.coordinator.domain
 
-import jakarta.persistence.*
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
 @Entity
-@Table(name = "transactions")
-class Transaction(
-    @Id
-    @Column(name = "transaction_id")
-    val transactionId: String,
+@Table(name = "saga_state")
+class SagaState(
 
-    @Column(name = "saga_id", nullable = false)
+    @Id
+    @Column(name = "saga_id")
     val sagaId: String,
 
     @Column(name = "from_account_number", nullable = false)

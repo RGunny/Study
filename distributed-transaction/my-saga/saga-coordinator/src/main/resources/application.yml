@@ -1,0 +1,38 @@
+spring:
+  application:
+    name: saga-coordinator
+
+  datasource:
+    url: jdbc:mysql://localhost:3310/coordinator_db
+    username: coordinator_user
+    password: coordinator_pass
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8084
+
+# Service URLs for Orchestration
+service:
+  account:
+    url: http://localhost:8081
+  transaction:
+    url: http://localhost:8082
+  notification:
+    url: http://localhost:8083
+
+logging:
+  level:
+    root: WARN
+    me.rgunny.saga: DEBUG
+    org.hibernate: WARN
+    com.zaxxer.hikari: WARN
+    org.springframework.web: WARN
+    org.springframework.boot: WARN

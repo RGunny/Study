@@ -71,6 +71,23 @@ services:
     networks:
       - saga-network
 
+  # MySQL for Saga Coordinator
+  mysql-coordinator:
+    image: mysql:8.0
+    container_name: saga-mysql-coordinator
+    ports:
+      - "3310:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: coordinator_db
+      MYSQL_USER: coordinator_user
+      MYSQL_PASSWORD: coordinator_pass
+    volumes:
+      - mysql-coordinator-data:/var/lib/mysql
+      - ./datasource/init-coordinator.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - saga-network
+
   # MySQL for Service 3 - Notification Service
   mysql-service3:
     image: mysql:8.0
@@ -96,6 +113,7 @@ volumes:
   zookeeper-data:
   zookeeper-logs:
   kafka-data:
+  mysql-coordinator-data:
   mysql-service1-data:
   mysql-service2-data:
   mysql-service3-data:

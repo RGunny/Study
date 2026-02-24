@@ -1,4 +1,4 @@
-package com.saga.notification.domain
+package me.rgunny.saga.notification.domain
 
 import jakarta.persistence.*
 import java.time.LocalDateTime

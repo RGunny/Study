@@ -1,6 +1,6 @@
-package me.rgunny.saga.account.api
+package me.rgunny.saga.coordinator.api
 
-import me.rgunny.saga.account.service.ChoreographyService
+import me.rgunny.saga.coordinator.service.OrchestrationService
 import me.rgunny.saga.common.dto.TransferRequest
 import me.rgunny.saga.common.dto.TransferResponse
 import org.springframework.web.bind.annotation.PostMapping
@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api")
 class TransferController(
-    private val choreographyService: ChoreographyService
+    private val orchestrationService: OrchestrationService
 ) {
-
-    @PostMapping("/choreography/transfer")
-    fun choreographyTransfer(@RequestBody request: TransferRequest): TransferResponse {
-        return choreographyService.initiateTransfer(request)
+    @PostMapping("/orchestration/transfer")
+    fun orchestrationTransfer(@RequestBody request: TransferRequest): TransferResponse {
+        return orchestrationService.executeTransfer(request)
     }
 }
