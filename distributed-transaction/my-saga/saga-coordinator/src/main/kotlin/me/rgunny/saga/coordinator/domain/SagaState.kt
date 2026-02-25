@@ -24,6 +24,9 @@ class SagaState(
     @Column(nullable = false)
     val amount: BigDecimal,
 
+    @Column(name = "saga_type", nullable = false)
+    val sagaType: String = "ORCHESTRATION",
+
     @Column(nullable = false)
     var status: String,
 

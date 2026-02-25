@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    implementation("tools.jackson.module:jackson-module-kotlin:3.0.3")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.18.2")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 }

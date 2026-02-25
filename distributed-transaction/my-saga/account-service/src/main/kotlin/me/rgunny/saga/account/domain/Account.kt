@@ -18,6 +18,9 @@ class Account(
     @Column(nullable = false)
     var balance: BigDecimal,
 
+    @Column(name = "frozen_amount", nullable = false)
+    var frozenAmount: BigDecimal = BigDecimal.ZERO,
+
     @Column(nullable = false)
     var status: String = "ACTIVE",
 

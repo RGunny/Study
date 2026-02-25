@@ -37,10 +37,10 @@ services:
     networks:
       - saga-network
 
-  # MySQL for Service 1 - Account Service
-  mysql-service1:
+  # MySQL for Account Service
+  mysql-account:
     image: mysql:8.0
-    container_name: saga-mysql-service1
+    container_name: saga-mysql-account
     ports:
       - "3309:3306"
     environment:
@@ -49,15 +49,15 @@ services:
       MYSQL_USER: account_user
       MYSQL_PASSWORD: account_pass
     volumes:
-      - mysql-service1-data:/var/lib/mysql
-      - ./datasource/init-service1.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql-account-data:/var/lib/mysql
+      - ./datasource/init-account.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - saga-network
 
-  # MySQL for Service 2 - Transaction Service
-  mysql-service2:
+  # MySQL for Transaction Service
+  mysql-transaction:
     image: mysql:8.0
-    container_name: saga-mysql-service2
+    container_name: saga-mysql-transaction
     ports:
       - "3307:3306"
     environment:
@@ -66,8 +66,8 @@ services:
       MYSQL_USER: transaction_user
       MYSQL_PASSWORD: transaction_pass
     volumes:
-      - mysql-service2-data:/var/lib/mysql
-      - ./datasource/init-service2.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql-transaction-data:/var/lib/mysql
+      - ./datasource/init-transaction.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - saga-network
 
@@ -88,10 +88,10 @@ services:
     networks:
       - saga-network
 
-  # MySQL for Service 3 - Notification Service
-  mysql-service3:
+  # MySQL for Notification Service
+  mysql-notification:
     image: mysql:8.0
-    container_name: saga-mysql-service3
+    container_name: saga-mysql-notification
     ports:
       - "3308:3306"
     environment:
@@ -100,8 +100,8 @@ services:
       MYSQL_USER: notification_user
       MYSQL_PASSWORD: notification_pass
     volumes:
-      - mysql-service3-data:/var/lib/mysql
-      - ./datasource/init-service3.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql-notification-data:/var/lib/mysql
+      - ./datasource/init-notification.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - saga-network
 
@@ -112,9 +112,8 @@ networks:
 volumes:
   zookeeper-data:
   zookeeper-logs:
-  kafka-data:
   mysql-coordinator-data:
-  mysql-service1-data:
-  mysql-service2-data:
-  mysql-service3-data:
+  mysql-account-data:
+  mysql-transaction-data:
+  mysql-notification-data:
 
