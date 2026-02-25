@@ -28,7 +28,7 @@ import java.util.UUID
  * 입금 실패 시 Account Service에 보상 요청을 보낸다.
  */
 @Service
-class OrchestrationService(
+class OrchestrationTransferService(
     private val sagaStateRepository: SagaStateRepository,
     private val restTemplate: RestTemplate,
     @Value("\${service.account.url}") private val accountServiceUrl: String,

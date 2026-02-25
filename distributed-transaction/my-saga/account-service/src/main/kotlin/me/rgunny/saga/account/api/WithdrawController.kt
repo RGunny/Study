@@ -1,6 +1,6 @@
 package me.rgunny.saga.account.api
 
-import me.rgunny.saga.account.service.AccountService
+import me.rgunny.saga.account.service.OrchestrationAccountService
 import me.rgunny.saga.common.dto.WithdrawRequest
 import me.rgunny.saga.common.dto.WithdrawResponse
 import org.springframework.web.bind.annotation.PostMapping
@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/internal")
 class WithdrawController(
-    private val accountService: AccountService
+    private val orchestrationAccountService: OrchestrationAccountService
 ) {
     /** 출금 요청을 처리하고 결과를 반환한다. */
     @PostMapping("/withdraw")
     fun withdraw(@RequestBody request: WithdrawRequest): WithdrawResponse {
-        val result = accountService.withdraw(request.sagaId, request.accountNumber, request.amount)
+        val result = orchestrationAccountService.withdraw(request.sagaId, request.accountNumber, request.amount)
             ?: return WithdrawResponse(transactionId = "", status = "FAILED")
         return WithdrawResponse(transactionId = result.transactionId, status = "COMPLETED")
     }
@@ -29,7 +29,7 @@ class WithdrawController(
     /** 출금 보상 요청을 처리한다 (잔액 복원). */
     @PostMapping("/withdraw/compensate")
     fun compensateWithdraw(@RequestBody request: WithdrawRequest): WithdrawResponse {
-        accountService.compensateWithdraw(request.accountNumber, request.amount)
+        orchestrationAccountService.compensateWithdraw(request.accountNumber, request.amount)
         return WithdrawResponse(transactionId = "", status = "COMPENSATED")
     }
 }

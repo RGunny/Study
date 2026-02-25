@@ -1,4 +1,4 @@
-package me.rgunny.saga.notification.controller
+package me.rgunny.saga.notification.api
 
 import me.rgunny.saga.notification.service.NotificationService
 import me.rgunny.saga.common.dto.NotificationRequest
